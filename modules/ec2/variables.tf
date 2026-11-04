@@ -1,19 +1,19 @@
 variable "instance_type" {
 description = "ec2 instance"
-default = "t2.micro"
+default = "t3.micro"
 type = "string"
 
 }
 
 variable "ami" {
 description = "ami for the ec2 instance"
-default = "ami"
+default = "ami-0c230065b91270bc6"
 type = "string"
 
 }
 
 variable "region" {
-description = "region for the test is east"
+description = "AWS region"
 default = "us-east-1"
 type = "string"
 
