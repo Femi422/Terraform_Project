@@ -1,15 +1,8 @@
-#1 resource
-resource "aws_instance" "web-app" {
-  ami = var.ami
-  instance_type = var.instance_type
-  vpc_id = data.aws_vpc.default.id
-  }
-
-  #keypair
-  resource "aws_key_pair" "deployer"{
-    key_name = var.keypair
-  }
- # using default sg?
+# 1. Security Group
+resource "aws_security_group" "web_app_sg" {
+  name        = "Web-sg"
+  description = "Web Application Security Group"
+  vpc_id      = data.aws_vpc.default.id
 
   ingress {
     description = "Allow SSH traffic"
@@ -36,5 +29,15 @@ resource "aws_instance" "web-app" {
   }
 
   tags = {
-    Name = "test-spot"
+    Name = "web-app"
   }
+}
+
+# 2. EC2 Instance
+resource "aws_instance" "web_app" {
+  ami                    = var.ami
+  subnet_id              = data.aws_subnet.default.id
+  vpc_security_group_ids = [aws_security_group.web_app_sg.id]
+  instance_type          = var.instance_type
+}
+
