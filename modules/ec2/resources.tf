@@ -1,7 +1,7 @@
 #1 resource
-resource "aws_instance" "this" {
-  ami = data.aws_ami.this.id
-  instance_type = t3.micro
+resource "aws_instance" "web-app" {
+  ami = var.ami
+  instance_type = var.instance_type
   vpc_id = data.aws_vpc.default.id
   }
   
@@ -29,10 +29,6 @@ resource "aws_instance" "this" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "web-app"
   }
 
   tags = {
