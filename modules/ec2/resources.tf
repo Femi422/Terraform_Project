@@ -4,7 +4,11 @@ resource "aws_instance" "web-app" {
   instance_type = var.instance_type
   vpc_id = data.aws_vpc.default.id
   }
-  
+
+  #keypair
+  resource "aws_key_pair" "deployer"{
+    key_name = var.keypair
+  }
  # using default sg?
 
   ingress {
